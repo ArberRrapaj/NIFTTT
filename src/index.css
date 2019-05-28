@@ -1,0 +1,94 @@
+:root {
+  --primary-color: #09a0e2;
+  --secondary-color: #f13c20;
+  --bright-bg: #edf4f7;
+  --dark-bg: #272727;
+  --dark-font: #333;
+  --grey-font: #696969;
+  --bright-font: #ffffff;
+}
+
+*{
+  flex: 0 0 auto;
+}
+
+body, html{
+  margin:0;
+  padding:0;
+  background-color:var(--bright-bg);
+  font-family:"Ubuntu";
+  color: var(--dark-font);
+}
+
+#navbar{
+  padding:10px;
+  background-color:var(--primary-color);
+  color:var(--bright-font);
+  box-shadow: 0px 0px 10px 0px var(--dark-bg);
+}
+
+#navbar h1{
+  margin:0;
+  font-size:2em;
+  text-align:left;
+  margin-left:20px;
+}
+
+#dashboard{
+  padding:25px;
+}
+
+#rule_list{
+  background-color:var(--bright-bg);
+  border-radius:5px;
+  overflow:hidden;
+  border:2px solid var(--dark-bg);
+  box-shadow: 0px 0px 10px 0px var(--dark-bg);
+}
+
+.column{
+  display:flex;
+  border-top:1px solid #CCC;
+  cursor:pointer;
+  overflow:hidden;
+  white-space: nowrap;
+  text-overflow:ellipsis;
+}
+
+/* column headers */
+.column:nth-child(1){
+  background-color: var(--dark-bg);
+  color: var(--bright-font);
+  font-size:1.25em;
+  font-weight:bold;
+  border-width:0;
+  cursor:default;
+}
+.column:nth-child(1) p{
+  color: var(--bright-font) !important;
+}
+
+
+/* columns */
+.column p{
+  align-self: center;
+  margin:10px 20px;
+}
+
+.column rule_field_name{
+  flex-grow:2;
+  width:1%;
+  font-weight:bold;
+}
+
+.column rule_field_automations{
+  flex-grow:1;
+  width:1%;
+  color: var(--grey-font);
+}
+
+.column rule_field_integrations{
+  flex-grow:1;
+  width:1%;
+  color: var(--grey-font);
+}
