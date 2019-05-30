@@ -33,18 +33,18 @@ class RuleList extends React.Component {
   render() {
     return(
       <div id="rule_list">
-      <div className="column">
-      <p>Name</p>
-      <p>Automations</p>
-      <p>Used Integrations</p>
-      </div>
-      {this.state.rules.map((rule) =>
-        <div className="column" onClick={()=>this.selectRule(rule.id)} key={rule.id}>
-          <Link to={"rule/" + rule.id} className="rule_field_name"><p>{rule.name}</p></Link>
-          <p className="rule_field_automations">{rule.automations}</p>
-          <p className="rule_field_integrations">{rule.used_integrations}</p>
+        <div className="column">
+          <p className="rule_field_name">Name</p>
+          <p className="rule_field_automations">Automations</p>
+          <p className="rule_field_integrations">Used Integrations</p>
         </div>
-      )}
+        {this.state.rules.map((rule) =>
+          <div className="column" onClick={()=>this.selectRule(rule.id)} key={rule.id}>
+            <Link to={"rule/" + rule.id} className="rule_field_name"><p>{rule.name}</p></Link>
+            <p className="rule_field_automations">{rule.automations}</p>
+            <p className="rule_field_integrations">{rule.used_integrations}</p>
+          </div>
+        )}
       </div>
     );
   }

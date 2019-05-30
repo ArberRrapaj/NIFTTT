@@ -1,12 +1,12 @@
 import React from 'react'
 import {BrowserRouter, Link, Route} from "react-router-dom"
-import Dashboard from "./Dashboard"
 
 class NavBar extends React.Component {
+  // <Link to="/dashboard"><h1>NIFTTT</h1></Link>
   render(){
     return(
       <div id = "navbar">
-        <Link to="/dashboard"><h1>NIFTTT</h1></Link>
+        <h1>NIFTTT</h1>
       </div>
     )
   }

@@ -25,7 +25,6 @@ class Rule extends React.Component {
 
   render(){
     var selectedRule = this.state.rules.filter(rule => rule.id == this.props.match.params.id)[0];
-    console.log(selectedRule);
 
     return(
       <div>
