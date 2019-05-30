@@ -1,8 +1,8 @@
 import React from 'react'
 import {BrowserRouter, Link, Route} from "react-router-dom"
 
+{/* TODO cleanup this code and the connected CSS part */}
 class Login extends React.Component {
-  // <Link to="/dashboard"><h1>NIFTTT</h1></Link>
   constructor(){
     super()
     this.state={
@@ -33,6 +33,7 @@ class Login extends React.Component {
   render(){
     return(
       <div id="login_wrapper_wrapper">
+        {/* email-login */}
         <div ref="login_wrapper" className="slide_container">
           <div className="login_text">
             <h2>Please enter your E-Mail</h2>
@@ -46,7 +47,9 @@ class Login extends React.Component {
             </div>
           </form>
         </div>
+        {/* spinner */}
         <div ref="spinner"><div></div><div></div><div></div><div></div></div>
+        {/* real-login */}
         <div ref="real_login_wrapper" className="slide_container no_display">
           <div className="login_text">
             <h2>Please enter your password</h2>
@@ -60,11 +63,10 @@ class Login extends React.Component {
             </div>
           </form>
         </div>
+        {/* TODO registration-form */}
       </div>
     )
   }
 }
-
-
 
 export default Login;
