@@ -34,9 +34,9 @@ class RuleList extends React.Component {
     return(
       <div id="rule_list">
         <div className="column">
-          <p className="rule_field_name">Name</p>
-          <p className="rule_field_automations">Automations</p>
-          <p className="rule_field_integrations">Used Integrations</p>
+          <p className="rule_field_name table_header">Name</p>
+          <p className="rule_field_automations table_header">Automations</p>
+          <p className="rule_field_integrations table_header">Used Integrations</p>
         </div>
         {this.state.rules.map((rule) =>
           <div className="column" onClick={()=>this.selectRule(rule.id)} key={rule.id}>

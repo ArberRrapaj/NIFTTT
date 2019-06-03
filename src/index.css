@@ -1,3 +1,4 @@
+/* ===== ===== ===== general ===== ===== ===== */
 :root {
   --primary-color: #0096ee;
   --secondary-color: #f13c20;
@@ -17,6 +18,19 @@ body, html{
   background-color:var(--bright-bg);
   font-family:"Ubuntu";
   color: var(--dark-font);
+}
+
+.flex-row{
+  display:flex;
+  width:100%;
+  justify-content: center;
+}
+.flex-vertical{
+  flex-direction: column;
+}
+
+input{
+  margin:0;
 }
 
 a{
@@ -44,6 +58,8 @@ h2{
   padding:10px;
   background-color:var(--primary-color);
   color:var(--bright-font);
+  box-shadow: 0 0 20px 0px #444;
+  background: linear-gradient(329deg, rgba(0,70,120,1) 0%, rgba(0,161,255,1) 100%);
 }
 
 #navbar h1{
@@ -53,15 +69,15 @@ h2{
   margin-left:20px;
 }
 
+/* ===== ===== ===== Dashboard ===== ===== ===== */
+
 #dashboard{
   padding:25px;
 }
 
 #rule_list{
   background-color:var(--bright-bg);
-  border-radius:5px;
   overflow:hidden;
-  border:2px solid var(--dark-bg);
 }
 
 .column{
@@ -73,19 +89,19 @@ h2{
   text-overflow:ellipsis;
 }
 
+.column:nth-of-type(1){
+  border-width:0;
+  border-bottom:1.5px solid var(--dark-font)
+}
+
 /* column headers */
-.column:nth-child(1){
-  background-color: var(--dark-bg);
-  color: var(--bright-font);
+.table_header{
+  color: var(--dark-font) !important;
   font-size:1.25em;
   font-weight:bold;
   border-width:0;
   cursor:default;
 }
-.column:nth-child(1) p{
-  color: var(--bright-font) !important;
-}
-
 
 /* columns */
 .column > p, .column > a{
@@ -104,13 +120,7 @@ h2{
   color: var(--grey-font);
 }
 
-/* Login */
-div.login_wrapper{
-  display:flex;
-  width:100%;
-  justify-content: center;
-}
-
+/* ===== ===== ===== LoginPage ===== ===== ===== */
 #login_wrapper_wrapper{
   border-radius:5px;
   width:430px;
@@ -118,18 +128,14 @@ div.login_wrapper{
   padding:30px;
   background-color: var(--dark-bg);
   box-shadow: 0 0 20px 0px #777;
-  background: rgb(0,51,80);
-  background: linear-gradient(329deg, rgba(0,51,80,1) 0%, rgba(0,161,255,1) 100%);
+  background: var(--primary-color);
+  background: linear-gradient(329deg, rgba(0,70,120,1) 0%, rgba(0,161,255,1) 100%);
   overflow:hidden;
   display:flex;
   justify-content: space-between;
 }
 
-
-div.login_wrapper input{
-  margin:0;
-}
-div.login_wrapper .login_email{
+.login_email{
   flex-grow:1;
   font-size:1.35em;
   border-radius: 8px 0 0 8px;
@@ -137,7 +143,7 @@ div.login_wrapper .login_email{
   padding:10px 20px;
 }
 
-div.login_wrapper .login_email_submit{
+.login_email_submit{
   width:50px;
   border-radius: 0 8px 8px 0;
   border:none;
@@ -146,14 +152,17 @@ div.login_wrapper .login_email_submit{
   font-size:1.5em;
 }
 
-.slide_container{
-  margin:0 auto;
-}
-
-div.login_text{
+.login_text{
   margin:0 auto 10px auto;
   font-size: 1.5em;
   color:var(--bright-font);
+}
+
+
+
+/* ===== ===== ===== Animations and shit ===== ===== ===== */
+.hor-center{
+  margin:0 auto;
 }
 
 .slide_out {
@@ -192,7 +201,7 @@ div.login_text{
   }
 }
 
-/* Loading Spinner */
+/* ===== ===== ===== Loading Spinner ===== ===== ===== */
 .lds-ellipsis {
   text-align:center;
   width:64px;

@@ -12,6 +12,8 @@ class Login extends React.Component {
     }
 
     this.emailLogin = this.emailLogin.bind(this)
+    this.realLogin = this.realLogin.bind(this)
+    this.register = this.register.bind(this)
   }
 
   emailLogin(e){
@@ -20,26 +22,39 @@ class Login extends React.Component {
       loading: true,
       login_wrapper_classes: "slide_out"
     })
+    {/* slide to loader */}
     this.refs.login_wrapper.className="slide_out"
     this.refs.spinner.className="slide_in lds-ellipsis"
 
+    {/* only cosmetic */}
     setTimeout(()=>{
       this.refs.spinner.className="slide_out"
-      this.refs.real_login_wrapper.className="slide_in slide_container"
-    }, 1500);
-    e.preventDefault();
+      // this.refs.real_login_wrapper.className="slide_in hor-center"
+      this.refs.register_wrapper.className="slide_in hor-center"
+    }, 150);
+    e.preventDefault()
+  }
+
+  realLogin(e){
+    alert("not implemented yet!")
+    e.preventDefault()
+  }
+
+  register(e){
+    alert("test")
+    e.preventDefault()
   }
 
   render(){
     return(
       <div id="login_wrapper_wrapper">
         {/* email-login */}
-        <div ref="login_wrapper" className="slide_container">
+        <div ref="login_wrapper" className="hor-center">
           <div className="login_text">
             <h2>Please enter your E-Mail</h2>
           </div>
           <form>
-            <div className="login_wrapper">
+            <div className="flex-row">
               <input className="login_email" type="text" placeholder="E-Mail"/>
               <button onClick={this.emailLogin} className="login_email_submit">
                 <i className="fa fa-arrow-right"></i>
@@ -50,20 +65,32 @@ class Login extends React.Component {
         {/* spinner */}
         <div ref="spinner"><div></div><div></div><div></div><div></div></div>
         {/* real-login */}
-        <div ref="real_login_wrapper" className="slide_container no_display">
+        <div ref="real_login_wrapper" className="hor-center no_display">
           <div className="login_text">
             <h2>Please enter your password</h2>
           </div>
           <form>
-            <div className="login_wrapper">
+            <div className="flex-row">
               <input className="login_email" type="password" placeholder="Password"/>
-              <button onClick={this.emailLogin} className="login_email_submit">
+              <button onClick={this.realLogin} className="login_email_submit">
                 <i className="fa fa-arrow-right"></i>
               </button>
             </div>
           </form>
         </div>
-        {/* TODO registration-form */}
+        <div ref="register_wrapper" className="hor-center no_display">
+          <div className="login_text">
+            <h2>Please enter your E-Mail</h2>
+          </div>
+          <form>
+            <div className="flex-row flex-vertical">
+              <input className="register_email" type="text" placeholder="E-Mail"/>
+              <button onClick={this.register} className="register_email_submit">
+                <i className="fa fa-arrow-right"></i>
+              </button>
+            </div>
+          </form>
+        </div>
       </div>
     )
   }
