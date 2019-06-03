@@ -135,7 +135,7 @@ h2{
   justify-content: space-between;
 }
 
-.login_email{
+.login_box, .register_box{
   flex-grow:1;
   font-size:1.35em;
   border-radius: 8px 0 0 8px;
@@ -143,13 +143,24 @@ h2{
   padding:10px 20px;
 }
 
-.login_email_submit{
+.register_box{
+  border-radius:8px;
+  margin:10px 0;
+}
+
+.login_box_submit, .register_box_submit{
   width:50px;
   border-radius: 0 8px 8px 0;
   border:none;
   background-color: var(--secondary-color);
   color: var(--bright-font);
   font-size:1.5em;
+  padding:10px 20px;
+}
+.register_box_submit{
+  border-radius:8px;
+  margin:20px auto;
+  width:100%;
 }
 
 .login_text{
@@ -161,7 +172,7 @@ h2{
 
 
 /* ===== ===== ===== Animations and shit ===== ===== ===== */
-.hor-center{
+.hor_center{
   margin:0 auto;
 }
 

@@ -29,8 +29,8 @@ class Login extends React.Component {
     {/* only cosmetic */}
     setTimeout(()=>{
       this.refs.spinner.className="slide_out"
-      // this.refs.real_login_wrapper.className="slide_in hor-center"
-      this.refs.register_wrapper.className="slide_in hor-center"
+      // this.refs.real_login_wrapper.className="slide_in hor_center"
+      this.refs.register_wrapper.className="slide_in hor_center"
     }, 150);
     e.preventDefault()
   }
@@ -49,14 +49,14 @@ class Login extends React.Component {
     return(
       <div id="login_wrapper_wrapper">
         {/* email-login */}
-        <div ref="login_wrapper" className="hor-center">
+        <div ref="login_wrapper" className="hor_center">
           <div className="login_text">
             <h2>Please enter your E-Mail</h2>
           </div>
           <form>
             <div className="flex-row">
-              <input className="login_email" type="text" placeholder="E-Mail"/>
-              <button onClick={this.emailLogin} className="login_email_submit">
+              <input className="login_box" type="email" placeholder="E-Mail"/>
+              <button onClick={this.emailLogin} className="login_box_submit">
                 <i className="fa fa-arrow-right"></i>
               </button>
             </div>
@@ -65,28 +65,31 @@ class Login extends React.Component {
         {/* spinner */}
         <div ref="spinner"><div></div><div></div><div></div><div></div></div>
         {/* real-login */}
-        <div ref="real_login_wrapper" className="hor-center no_display">
+        <div ref="real_login_wrapper" className="hor_center no_display">
           <div className="login_text">
             <h2>Please enter your password</h2>
           </div>
           <form>
             <div className="flex-row">
-              <input className="login_email" type="password" placeholder="Password"/>
-              <button onClick={this.realLogin} className="login_email_submit">
+              <input className="login_box" type="password" placeholder="Password"/>
+              <button onClick={this.realLogin} className="login_box_submit">
                 <i className="fa fa-arrow-right"></i>
               </button>
             </div>
           </form>
         </div>
-        <div ref="register_wrapper" className="hor-center no_display">
+        <div ref="register_wrapper" className="hor_center no_display">
           <div className="login_text">
-            <h2>Please enter your E-Mail</h2>
+            <h2>Please enter your details</h2>
           </div>
           <form>
             <div className="flex-row flex-vertical">
-              <input className="register_email" type="text" placeholder="E-Mail"/>
-              <button onClick={this.register} className="register_email_submit">
-                <i className="fa fa-arrow-right"></i>
+              <input className="register_box" type="text" placeholder="First Name"/>
+              <input className="register_box" type="email" placeholder="E-Mail"/>
+              <input className="register_box" type="password" placeholder="Password"/>
+              <input className="register_box" type="text" placeholder="Favorite ice cream flavor"/>
+              <button onClick={this.register} className="register_box_submit">
+                Register <i className="fa fa-arrow-right"></i>
               </button>
             </div>
           </form>
