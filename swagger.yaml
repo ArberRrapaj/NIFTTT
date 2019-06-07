@@ -13,24 +13,82 @@ schemes:
 - "https"
 - "http"
 paths:
-  /users/{id}:
-    get:
+  /login:
+    post:
       tags:
       - "user"
-      summary: "Get user by ID"
-      operationId: "getUserById"
+      summary: "login a user"
+      operationId: "loginUser"
+      consumes:
+      - "application/json"
       produces:
       - "application/json"
       parameters:
-      - name: "id"
-        in: "path"
+      - in: "body"
+        name: "body"
+        description: "Login Credentials"
         required: true
-        type: "integer"
+        schema:
+          type: "object"
+          properties:
+            email:
+              type: "string"
+            login_password:
+              type: "string"
       responses:
         200:
           description: "success"
-          schema:
-            $ref: "#/definitions/User"
+        401:
+          description: "unauthorized"
+  /register:
+    post:
+      tags:
+      - "user"
+      summary: "register a user"
+      operationId: "registerUser"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "user information"
+        required: true
+        schema:
+          type: "object"
+          properties:
+            email:
+              type: "string"
+            register_firstname:
+              type: "string"
+            register_password:
+              type: "string"
+            register_icecream:
+              type: "string"
+      responses:
+        200:
+          description: "success"
+        400:
+          description: "email already taken"
+  /users/{email}:
+    get:
+      tags:
+      - "user"
+      summary: "Get user existance by email (returns 1 or 0)"
+      operationId: "getUserByEmail"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "email"
+        in: "path"
+        required: true
+        type: "string"
+      responses:
+        200:
+          description: "success"
+        404:
+          description: "not found"
     put:
       tags:
       - "user"
@@ -41,10 +99,10 @@ paths:
       produces:
       - "application/json"
       parameters:
-      - name: "id"
+      - name: "email"
         in: "path"
         required: true
-        type: "integer"
+        type: "string"
       - in: "body"
         name: "body"
         description: "User Object"
@@ -60,10 +118,10 @@ paths:
       summary: "Delete a user"
       operationId: "deleteUser"
       parameters:
-      - name: "id"
+      - name: "email"
         in: "path"
         required: true
-        type: "integer"
+        type: "string"
       responses:
         200:
           description: "success"
