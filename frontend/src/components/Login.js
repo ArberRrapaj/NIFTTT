@@ -8,10 +8,10 @@ class Login extends React.Component {
     super()
     this.state={
       email: "",
-      login_password: "",
-      register_firstname: "",
-      register_password: "",
-      register_icecream: ""
+      loginPassword: "",
+      registerFirstname: "",
+      registerPassword: "",
+      registerIcecream: ""
     }
 
     this.emailLogin = this.emailLogin.bind(this)
@@ -131,13 +131,13 @@ class Login extends React.Component {
           </div>
           <form>
             <div className="flex-row flex-vertical">
-              <input name="register_firstname" value={this.state.register_firstname}
+              <input name="registerFirstname" value={this.state.register_firstname}
                 className="register_box" type="text" placeholder="First Name"
                 onChange={this.handleInput}/>
-              <input name="register_password" value={this.state.register_password}
+              <input name="registerPassword" value={this.state.register_password}
                 className="register_box" type="password" placeholder="Password"
                 onChange={this.handleInput}/>
-              <input name="register_icecream" value={this.state.register_icecream}
+              <input name="registerIcecream" value={this.state.register_icecream}
                 className="register_box" type="text" placeholder="Favorite ice cream flavor"
                 onChange={this.handleInput}/>
               <button onClick={this.register} className="register_box_submit">

@@ -8,7 +8,7 @@ tags:
 - name: "user"
   description: "User related paths"
 - name: "rule"
-  description: "Access to Petstore orders"
+  description: "Rule related paths"
 schemes:
 - "https"
 - "http"
@@ -33,7 +33,7 @@ paths:
           properties:
             email:
               type: "string"
-            login_password:
+            loginPassword:
               type: "string"
       responses:
         200:
@@ -60,11 +60,11 @@ paths:
           properties:
             email:
               type: "string"
-            register_firstname:
+            registerFirstname:
               type: "string"
-            register_password:
+            registerPassword:
               type: "string"
-            register_icecream:
+            registerIcecream:
               type: "string"
       responses:
         200:
@@ -137,7 +137,7 @@ paths:
       - "application/json"
       parameters:
       - in: "body"
-        name: "user-data"
+        name: "userData"
         description: "User Object"
         required: true
         schema:
@@ -211,7 +211,7 @@ paths:
       - "application/json"
       parameters:
       - in: "body"
-        name: "rule-data"
+        name: "ruleData"
         description: "Rule Object"
         required: true
         schema:
@@ -244,11 +244,11 @@ definitions:
         type: "integer"
       automationsMonth:
         type: "integer"
-      trigger-id:
+      triggerId:
         type: "string"
-      action-id:
+      actionId:
         type: "string"
-      trigger-payload:
+      triggerPayload:
         type: "object"
-      action-payload:
+      actionPayload:
         type: "object"
