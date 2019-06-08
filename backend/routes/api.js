@@ -3,6 +3,9 @@ var express = require('express'),
     jwt = require("jsonwebtoken"),
     fs = require('fs'),
     response = require('../utilities/ResponseHandler'),
+    Validator = require('../utilities/ValidationHandler'),
+    Schemas = require('../utilities/Schemas'),
+    path = require('path'),
     DB = require('../db/DBConnector');
 // certLogin = fs.readFileSync('cert/login.cer'),
 
@@ -13,6 +16,7 @@ require("./apiLOGIN.js")(router, response, DB, jwt);
  * Secures the API to be only accessed by logged in people.
  */
 router.use("/", function (req, res, next) {
+    /*
     console.log('Checking LoginToken...');
     // Check header or url parameters or post parameters for token.
     var loginToken = req.headers['authorization'] || req.body.token || req.query.token || "";
@@ -28,6 +32,8 @@ router.use("/", function (req, res, next) {
             next();
         }
     });
+    */
+   res.sendFile(path.join(__dirname, '../', 'api.png'))
 });
 
 // REST Routes

@@ -1,5 +1,5 @@
 const mysql = require('mysql');
-require('dotenv').load();
+require('dotenv');
 
 class DBConnector {
 
