@@ -5,24 +5,7 @@ class RuleList extends React.Component {
   constructor(){
     super();
     this.state = {
-      "rules":[{
-        "id": 1,
-        "name": "Like my GFs pic after random time",
-        "automations": 34,
-        "used_integrations": ["instagram"]
-      },
-      {
-        "id": 2,
-        "name": "Autolike my own tweets :P",
-        "automations": 12,
-        "used_integrations": ["twitter"]
-      },
-      {
-        "id": 3,
-        "name": "Respond thanks to every comment",
-        "automations": 28,
-        "used_integrations": ["instagram"]
-      }]
+      "rules":[]
     }
   }
 

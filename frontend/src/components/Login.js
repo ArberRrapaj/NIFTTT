@@ -1,6 +1,7 @@
 import React from "react"
 // import {BrowserRouter, Link, Route} from "react-router-dom"
 import axios from "axios"
+const uiu = require("../UIUtils")
 
 {/* TODO cleanup this code and the connected CSS part */}
 class Login extends React.Component {
@@ -20,40 +21,41 @@ class Login extends React.Component {
     this.handleInput = this.handleInput.bind(this)
   }
 
-  emailLogin(e){
-    {/* slide to loader */}
-    this.refs.login_wrapper.className="slide_out"
-    this.refs.spinner.className="slide_in lds-ellipsis"
+  componentDidMount(){
+    this.refs.emailInput.focus()
+  }
 
-    {/* make server request */}
-    axios.get("https://jsonplaceholder.typicode.com/users/${this.state.email}")
+  emailLogin(e){
+    uiu.showSpinner(this.refs.login_wrapper, this.refs.spinner);
+
+    axios.get(`http://localhost:8080/users/${this.state.email}`)
     .then(res=>{
-      this.refs.spinner.className="slide_out"
-      this.refs.real_login_wrapper.className="slide_in hor_center"
+      uiu.hideSpinner(this.refs.real_login_wrapper, this.refs.spinner);
+      this.refs.loginPassword.focus()
     })
     .catch(error=>{
-      if(error.response.status == 404){
-        this.refs.spinner.className="slide_out"
-        this.refs.register_wrapper.className="slide_in hor_center"
+      if(error.response && error.response.status == 404){
+        uiu.hideSpinner(this.refs.register_wrapper, this.refs.spinner);
+        this.refs.registerFirstname.focus()
       }else{
-        console.log("error while checking user existance: " )
+        console.log("error while checking user existance: ")
         console.log(error)
       }
     })
-
     e.preventDefault()
   }
 
   realLogin(e){
-    axios.post("https://jsonplaceholder.typicode.com/login", this.state)
+    uiu.showSpinner(this.refs.real_login_wrapper, this.refs.spinner);
+    axios.post("http://localhost:8080/login", this.state)
     .then(res=>{
-      this.refs.real_login_wrapper.className="slide_out"
+      uiu.hideOnly(this.refs.spinner);
       alert("nice")
     })
     .catch(error=>{
+      uiu.hideOnly(this.refs.spinner);
       if(error.response.status == 401){
         alert("nope")
-        // TODO: False password
       }else{
         console.log("error while logging in: " )
         console.log(error)
@@ -63,12 +65,14 @@ class Login extends React.Component {
   }
 
   register(e){
-    axios.post("https://jsonplaceholder.typicode.com/register", this.state)
+    uiu.showSpinner(this.refs.register_wrapper, this.refs.spinner)
+    axios.post("http://localhost:8080/register", this.state)
     .then(res=>{
-      this.refs.real_login_wrapper.className="slide_out"
+      uiu.hideOnly(this.refs.spinner)
       alert("nice")
     })
     .catch(error=>{
+      uiu.hideOnly(this.refs.spinner)
       if(error.response.status == 401){
         alert("nope")
         // TODO: False password
@@ -98,9 +102,9 @@ class Login extends React.Component {
           </div>
           <form>
             <div className="flex-row">
-              <input name="email" value={this.state.email}
+              <input name="email" value={this.state.email} ref="emailInput"
                 className="login_box" type="email" placeholder="E-Mail"
-                onChange={this.handleInput}/>
+                onChange={this.handleInput} autofocus/>
               <button onClick={this.emailLogin} className="login_box_submit">
                 <i className="fa fa-arrow-right"></i>
               </button>
@@ -116,7 +120,7 @@ class Login extends React.Component {
           </div>
           <form>
             <div className="flex-row">
-              <input name="login_password" value={this.state.login_password}
+              <input name="loginPassword" value={this.state.loginPassword} ref="loginPassword"
                 className="login_box" type="password" placeholder="Password"
                 onChange={this.handleInput}/>
               <button onClick={this.realLogin} className="login_box_submit">
@@ -131,13 +135,13 @@ class Login extends React.Component {
           </div>
           <form>
             <div className="flex-row flex-vertical">
-              <input name="registerFirstname" value={this.state.register_firstname}
+              <input name="registerFirstname" value={this.state.registerFirstname}
                 className="register_box" type="text" placeholder="First Name"
-                onChange={this.handleInput}/>
-              <input name="registerPassword" value={this.state.register_password}
+                onChange={this.handleInput} ref="registerFirstname"/>
+              <input name="registerPassword" value={this.state.registerPassword}
                 className="register_box" type="password" placeholder="Password"
                 onChange={this.handleInput}/>
-              <input name="registerIcecream" value={this.state.register_icecream}
+              <input name="registerIcecream" value={this.state.registerIcecream}
                 className="register_box" type="text" placeholder="Favorite ice cream flavor"
                 onChange={this.handleInput}/>
               <button onClick={this.register} className="register_box_submit">
