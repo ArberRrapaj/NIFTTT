@@ -5,26 +5,35 @@ var iterations = 2500
 var keylength = 128
 var digest = 'sha512'
 
-module.exports = function (router, response, DB, jwt) {
+module.exports = function (router, response, DB, jwt, Validator, Schemas) {
 
   router.post("/login", function (req, res) {
-    DB.query('SELECT password, salt FROM Users WHERE email = ?', req.body["email"], function (err, results) {
-      if (err) res.send(err);
+    var login = {
+      email: req.body['email'],
+      password: req.body['loginPassword'],
+    }
+    const validation = Validator.validate(login, Schemas.login);
+    if (validation.invalid) {
+      response.badRequestError(validation.message, res);
+      return;
+    } else login = validation.value;
+
+    DB.query('SELECT password, salt FROM Users WHERE email = ?', login.email, function (err, results) {
+      if (err) response.databaseError(res);
       else {
         if (results.length == 0) {
-          res.send("There is no user with that mail");
+          response.notFoundError('There is no user with that mail', res);
           return;
         }
         const user = results[0];
 
         // hashing user's salt and password with the same amount of iterations, key length and digest
-        Crypto.pbkdf2(req.body['password'], user.salt, iterations, keylength, digest, function (err, encodedPassword) {
-          if (err) callback(err, 'Internal Error, try again later please', true)
+        Crypto.pbkdf2(login.password, user.salt, iterations, keylength, digest, function (err, encodedPassword) {
+          if (err) response.serverError('There was a server-error', res);
           else {
-
             var inputPassword = Buffer.from(encodedPassword, 'binary').toString('base64')
             if (inputPassword === user.password) response.success('Successfully logged in', res);// callback(false, 'Successfully logged in')
-            else res.send('The Username-Password-Combination doesn\'t match'); // callback(true, 'The Username-Password-Combination doesn\'t match', false)
+            else response.unauthorizedError('The Username-Password-Combination doesn\'t match', res); // callback(true, 'The Username-Password-Combination doesn\'t match', false)
           }
         })
 
@@ -34,12 +43,19 @@ module.exports = function (router, response, DB, jwt) {
   });
 
   router.post("/register", function (req, res) {
-    var salt;
-    var hashedPassword;
-    const password = req.body['registerPassword'];
-    const email = req.body['email'];
+    var user = {
+      email: req.body['email'],
+      password: req.body['registerPassword'],
+      firstName: req.body['registerFirstname'],
+      icecream: req.body['registerIcecream']
+    }
+    const validation = Validator.validate(user, Schemas.user);
+    if (validation.invalid) {
+      response.badRequestError(validation.message, res);
+      return;
+    } else user = validation.value;
 
-    DB.query("SELECT email FROM Users WHERE email = ?;", email, function (err, result) {
+    DB.query("SELECT email FROM Users WHERE email = ?;", user.email, function (err, result) {
       if (err) response.databaseError(res);
       else {
         console.log(result);
@@ -49,23 +65,16 @@ module.exports = function (router, response, DB, jwt) {
             if (err) response.serverError('There was a server-error', res);
             else {
               // console.log('random shit generated\n\n');
-              salt = buf.toString('base64');
+              const salt = buf.toString('base64');
               // console.log(salt);
 
               // hashing user's salt and password with 2500 iterations, a length of 128 (172 characters) and sha512 digest
-              Crypto.pbkdf2(password, salt, iterations, keylength, digest, function (err, encodedPassword) {
+              Crypto.pbkdf2(user.password, salt, iterations, keylength, digest, function (err, encodedPassword) {
                 if (err) response.serverError('There was a server-error', res);
                 else {
                   // console.log('password generated\n\n');
-                  hashedPassword = Buffer.from(encodedPassword, 'binary').toString('base64');
-                  // console.log(hashedPassword);
-                  var user = {
-                    email: email,
-                    password: hashedPassword,
-                    salt: salt,
-                    firstName: req.body['registerFirstname'],
-                    icecream: req.body['registerIcecream']
-                  }
+                  user.password = Buffer.from(encodedPassword, 'binary').toString('base64');
+                  user.salt = salt;
                   DB.query("INSERT INTO Users SET ?;", user, function (err, result) {
                     if (err) response.databaseError(res);
                     else response.success('Successfully registered', res);

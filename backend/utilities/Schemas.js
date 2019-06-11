@@ -2,20 +2,24 @@ const JOI = require('joi');
 
 module.exports = {
     user: JOI.object().keys({
-      "id": JOI.number().integer().required(),
+      "email": JOI.string().email().lowercase().required(),
       "firstName": JOI.string().max(100).required(),
-      "lastName": JOI.string().max(100).required(),
-      "email": JOI.string().max(350).required().allow('', null),
-      "password": JOI.string().max(100).required()
+      "password": JOI.string().max(100).required(),
+      "icecream": JOI.string().max(50).required()
     }),
+    login: JOI.object().keys({
+      "email": JOI.string().email().lowercase().required(),
+      "loginPassword": JOI.string().required()
+    }),
+    email: JOI.string().email().lowercase().required(),
     rule: JOI.object().keys({
-      'id': JOI.number().integer(),
+      'id': JOI.number().integer().optional().allow('', null),
       'name': JOI.string().max(50).required(),
-      'triggerPlatform': JOI.number().integer().required(),
-      'actionPlatform': JOI.number().integer().required(),
-      'triggerPayload': JOI.object().required(),
-      'actionPayload': JOI.object().required(),
+      'triggerPlatform': JOI.number().integer().optional(),
+      'actionPlatform': JOI.number().integer().optional(),
+      'triggerPayload': JOI.string().optional(),
+      'actionPayload': JOI.string().optional(),
       'active': JOI.number().integer().min(0).max(1).required(),
-      'user': JOI.number().integer().required()
+      'user': JOI.string().email().lowercase().required()
     })
 }
