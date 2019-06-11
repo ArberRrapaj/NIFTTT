@@ -11,7 +11,7 @@ class ResponseHandler {
     }
 
     /**
-     * 
+     *
      * @param {*} data Data to be send back to Frontend.
      * @param {*} res Response Object.
      */
@@ -20,7 +20,7 @@ class ResponseHandler {
     }
 
     /**
-     * 
+     *
      * @param {*} data Data to be send the frontend.
      * @param {*} res Response Object.
      */
@@ -29,7 +29,7 @@ class ResponseHandler {
     }
 
     /**
-     * 
+     *
      * @param {*} date Data to be send the frontend.
      * @param {*} res Response Object.
      */
@@ -38,7 +38,7 @@ class ResponseHandler {
     }
 
     /**
-     * 
+     *
      * @param {*} data Data to be send the frontend.
      * @param {*} res Response Object.
      */
@@ -47,7 +47,7 @@ class ResponseHandler {
     }
 
     /**
-     * 
+     *
      * @param {*} data Data to be send the frontend.
      * @param {*} res Response Object.
      */
@@ -56,9 +56,9 @@ class ResponseHandler {
     }
 
     /**
-     * 
-     * @param {*} message 
-     * @param {*} res 
+     *
+     * @param {*} message
+     * @param {*} res
      */
     static databaseError(res) {
         const sql_error = 'There was an error in the request you sent. Please contact bla@bla.com';
@@ -66,7 +66,7 @@ class ResponseHandler {
     }
 
     /**
-     * 
+     *
      * @param {*} res Response Object.
      */
     static notEnoughRightsError(res) {
@@ -74,7 +74,7 @@ class ResponseHandler {
     }
 
     /**
-     * 
+     *
      * @param {*} res Response Object.
      */
     static badDataError(res) {
@@ -82,7 +82,7 @@ class ResponseHandler {
     }
 
     /**
-     * 
+     *
      * @param {*} res Response Object.
      */
     static notEnoughSeats(res) {

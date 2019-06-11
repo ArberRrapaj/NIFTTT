@@ -69,6 +69,10 @@ h2{
   margin-left:20px;
 }
 
+.no_scroll{
+  overflow:hidden;
+}
+
 /* ===== ===== ===== Dashboard ===== ===== ===== */
 
 #dashboard{

@@ -11,5 +11,8 @@
      "no-unused-vars":0,
      "linebreak-style":0,
      "guard-for-in":0
-   }
+   },
+   "parserOptions": {
+        "sourceType": "module",
+    }
 }
