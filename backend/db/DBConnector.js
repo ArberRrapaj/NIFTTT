@@ -1,6 +1,5 @@
 const mysql = require('mysql');
-require('dotenv');
-
+require('dotenv').config();
 class DBConnector {
 
     constructor(conLimit, dbhost, dbuser, dbpassword, dbname, dbport) {
