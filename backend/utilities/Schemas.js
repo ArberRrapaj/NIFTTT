@@ -10,12 +10,12 @@ module.exports = {
     }),
     rule: JOI.object().keys({
       'id': JOI.number().integer(),
-      'label': JOI.string().max(50).required(),
-      'automationsTotal': JOI.number().integer().required(),
-      'automationsMonth': JOI.number().integer().required(),
-      'triggerId': JOI.string().required(),
-      'actionId': JOI.string().required(),
+      'name': JOI.string().max(50).required(),
+      'triggerPlatform': JOI.number().integer().required(),
+      'actionPlatform': JOI.number().integer().required(),
       'triggerPayload': JOI.object().required(),
       'actionPayload': JOI.object().required(),
+      'active': JOI.number().integer().min(0).max(1).required(),
+      'user': JOI.number().integer().required()
     })
 }

@@ -15,7 +15,8 @@ require("./apiLOGIN.js")(router, response, DB, jwt);
 /**
  * Secures the API to be only accessed by logged in people.
  */
-router.use("/", function (req, res, next) {
+//router.use("/", function (req, res, next) {
+router.get("/", function (req, res) {
     /*
     console.log('Checking LoginToken...');
     // Check header or url parameters or post parameters for token.
