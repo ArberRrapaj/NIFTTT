@@ -24,7 +24,7 @@ app.options('*', cors());
 
 // Routes
 app.use(require('../routes/api'));
-app.use(require('./eventChecker'));
+require('./eventChecker');
 
 
 // catch 404 and forward to error handler
