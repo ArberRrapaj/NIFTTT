@@ -51,6 +51,15 @@ class ResponseHandler {
      * @param {*} data Data to be send the frontend.
      * @param {*} res Response Object.
      */
+    static notFoundError(data, res) {
+        this.sendResponse(404, data, res);
+    }
+
+    /**
+     *
+     * @param {*} data Data to be send the frontend.
+     * @param {*} res Response Object.
+     */
     static serverError(data, res) {
         this.sendResponse(500, data, res);
     }

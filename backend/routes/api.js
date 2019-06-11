@@ -10,7 +10,7 @@ var express = require('express'),
 // certLogin = fs.readFileSync('cert/login.cer'),
 
 // add Login-Routes before the login-check
-require("./apiLOGIN.js")(router, response, DB, jwt);
+require("./apiLOGIN.js")(router, response, DB, jwt, Validator, Schemas);
 
 /**
  * Secures the API to be only accessed by logged in people.

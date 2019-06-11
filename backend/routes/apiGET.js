@@ -9,19 +9,29 @@ module.exports = function(router, response, DB, Validator, Schemas) {
   }); */
 
   router.get("/users/:email", function(req, res) {
-    DB.query("SELECT * FROM Users WHERE email = ?;", req.params["email"], function(err, result) {
+    const validation = Validator.validate(req.params["email"], Schemas.email);
+    if (validation.invalid) {
+      response.badRequestError(validation.message, res);
+      return;
+    } else req.params["email"] = validation.value;
+    // console.log('Validation:', validation);
+
+    DB.query("SELECT email, firstName, icecream FROM Users WHERE email = ?;", req.params["email"], function(err, result) {
       if (err) {
         response.databaseError(res);
         console.log(err);
-      } else if (result.length == 0) {
-        response.sendResponse(404, [], res);
-      } else {
-        response.success([], res);
-      }
+      } else if (result.length == 0) response.notFoundError("There is no user with that email", res);
+      else response.success(result[0], res);
     });
   });
 
   router.get("/users/:email/rules", function(req, res) {
+    const validation = Validator.validate(req.params["email"], Schemas.email);
+    if (validation.invalid) {
+      response.badRequestError(validation.message, res);
+      return;
+    } else req.params["email"] = validation.value;
+
     DB.query("SELECT * FROM Rules WHERE user = ?;", req.params["email"], function(err, result) {
       if (err) {
         response.databaseError(res);
@@ -44,9 +54,7 @@ module.exports = function(router, response, DB, Validator, Schemas) {
       if (err) {
         console.log(err);
         response.databaseError(res);
-      } else {
-        response.success(result, res);
-      }
+      } else response.success(result, res);
     });
   });
 };
