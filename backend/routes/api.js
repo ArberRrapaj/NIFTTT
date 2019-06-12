@@ -9,6 +9,7 @@ var express = require('express'),
     DB = require('../db/DBConnector');
 // certLogin = fs.readFileSync('cert/login.cer'),
 
+require('../bin/eventChecker')(DB);
 // add Login-Routes before the login-check
 require("./apiLOGIN.js")(router, response, DB, jwt, Validator, Schemas);
 

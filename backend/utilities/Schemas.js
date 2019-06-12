@@ -3,9 +3,9 @@ const JOI = require('joi');
 module.exports = {
     user: JOI.object().keys({
       "email": JOI.string().email().lowercase().required(),
-      "firstName": JOI.string().max(100).required(),
-      "password": JOI.string().max(100).required(),
-      "icecream": JOI.string().max(50).required()
+      "registerFirstname": JOI.string().max(100).required(),
+      "registerPassword": JOI.string().max(100).required(),
+      "registerIcecream": JOI.string().max(50).required()
     }),
     login: JOI.object().keys({
       "email": JOI.string().email().lowercase().required(),
