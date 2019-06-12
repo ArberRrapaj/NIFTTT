@@ -10,7 +10,7 @@ module.exports = function (router, response, DB, jwt, Validator, Schemas) {
   router.post("/login", function (req, res) {
     var login = {
       email: req.body['email'],
-      password: req.body['loginPassword'],
+      loginPassword: req.body['loginPassword'],
     }
     const validation = Validator.validate(login, Schemas.login);
     if (validation.invalid) {
@@ -45,9 +45,9 @@ module.exports = function (router, response, DB, jwt, Validator, Schemas) {
   router.post("/register", function (req, res) {
     var user = {
       email: req.body['email'],
-      password: req.body['registerPassword'],
-      firstName: req.body['registerFirstname'],
-      icecream: req.body['registerIcecream']
+      registerPassword: req.body['registerPassword'],
+      registerFirstname: req.body['registerFirstname'],
+      registerIcecream: req.body['registerIcecream']
     }
     const validation = Validator.validate(user, Schemas.user);
     if (validation.invalid) {
