@@ -28,7 +28,7 @@ module.exports = function (router, response, DB, jwt, Validator, Schemas) {
         const user = results[0];
 
         // hashing user's salt and password with the same amount of iterations, key length and digest
-        Crypto.pbkdf2(login.password, user.salt, iterations, keylength, digest, function (err, encodedPassword) {
+        Crypto.pbkdf2(login.loginPassword, user.salt, iterations, keylength, digest, function (err, encodedPassword) {
           if (err) response.serverError('There was a server-error', res);
           else {
             var inputPassword = Buffer.from(encodedPassword, 'binary').toString('base64')
