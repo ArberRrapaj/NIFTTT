@@ -14,23 +14,19 @@ class RuleList extends React.Component {
     const axConf = {
       url: `http://localhost:8080/users/${Cookies.get("email")}/rules`,
       method: "get",
-      withCredentials: true,
       headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json',
-        "Access-Control-Allow-Origin": "*"
+        "authtoken": Cookies.get("authtoken")
       }
     }
 
     axios.request(axConf)
     .then(res=>{
-      alert("everything's alright!")
       this.setState({
-        state: res.data
+        rules: res.data
       })
     })
     .catch(error=>{
-      alert(`An unknown has occured.`)
+      alert(`An unknown error has occured.`)
       console.error(error)
     })
   }
@@ -45,13 +41,18 @@ class RuleList extends React.Component {
         <div className="column">
           <p className="rule_field_name table_header">Name</p>
           <p className="rule_field_automations table_header">Automations</p>
-          <p className="rule_field_integrations table_header">Used Integrations</p>
+          <p className="rule_field_integrations table_header">Status</p>
         </div>
         {this.state.rules.map((rule) =>
-          <div className="column" onClick={()=>this.selectRule(rule.id)} key={rule.id}>
-            <Link to={"rule/" + rule.id} className="rule_field_name"><p>{rule.name}</p></Link>
-            <p className="rule_field_automations">{rule.automations}</p>
-            <p className="rule_field_integrations">{rule.used_integrations}</p>
+          <div className="column">
+            <Link to={{
+                pathname: "rule/" + rule.id,
+                state:{
+                  "rule": rule
+                }
+              }} className="rule_field_name"><p>{rule.name}</p></Link>
+            <p className="rule_field_automations">{rule.runCount}</p>
+            <p className="rule_field_integrations">{rule.active?"on":"off"}</p>
           </div>
         )}
       </div>
