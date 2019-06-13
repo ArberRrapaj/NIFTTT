@@ -17,19 +17,11 @@ module.exports = function (router, response, DB, Validator, Schemas) {
       else {
         console.log(result);
         if (result.length != 0) {
-
-          DB.query("SELECT id FROM Rules WHERE name = ?;", body['name'], function (err, result) {
+          console.log(result);
+          DB.query("INSERT INTO Rules SET ?;", rule, function (err, result) {
             if (err) response.databaseError(res);
-            else {
-              console.log(result);
-              if (result.length == 0) {
-                DB.query("INSERT INTO Rules SET ?;", rule, function (err, result) {
-                  if (err) response.databaseError(res);
-                  else response.success('Successfully added rule', res);
-                });
-              } else response.badRequestError('There is already a rule with that name', res);
-            }
-          })
+            else response.success('Successfully added rule', res);
+          });
         } else response.badRequestError('There is no user with that email', res);
       }
     });
