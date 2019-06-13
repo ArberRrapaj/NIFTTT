@@ -11,7 +11,7 @@ var express = require('express'),
     cookieParser = require("cookie-parser")(),
     cors = require("cors")();
 
-// require('../bin/eventChecker')(DB);
+require('../bin/eventChecker')(DB);
 // add Login-Routes before the login-check
 router.use(cookieParser)
 router.use(cors)

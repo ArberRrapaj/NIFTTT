@@ -25,7 +25,7 @@ module.exports = function (DB) {
     var moment = require('moment');
     let Parser = require('rss-parser');
     let parser = new Parser();
-    const rssUrl = 'http://127.0.0.1:1200/';
+    const rssUrl = 'http://minervabooks.net:1200/';
     const timestamp = "YYYY-MM-DD HH:mm:ss";
     // console.log('Dat date:', moment('Tue, 11 Jun 2019 23:43:33 GMT').format(timestamp));
 
