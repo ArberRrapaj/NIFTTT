@@ -6,36 +6,33 @@ var express = require('express'),
     Validator = require('../utilities/ValidationHandler'),
     Schemas = require('../utilities/Schemas'),
     path = require('path'),
-    DB = require('../db/DBConnector');
-// certLogin = fs.readFileSync('cert/login.cer'),
+    DB = require('../db/DBConnector'),
+    loginCert = fs.readFileSync('cert/loginRS256.key');
 
 require('../bin/eventChecker')(DB);
 // add Login-Routes before the login-check
-require("./apiLOGIN.js")(router, response, DB, jwt, Validator, Schemas);
+require("./apiLOGIN.js")(router, response, DB, jwt, Validator, Schemas, loginCert);
 
 /**
  * Secures the API to be only accessed by logged in people.
  */
-//router.use("/", function (req, res, next) {
-router.get("/", function (req, res) {
-    /*
+router.use("/", function (req, res, next) {
     console.log('Checking LoginToken...');
     // Check header or url parameters or post parameters for token.
-    var loginToken = req.headers['authorization'] || req.body.token || req.query.token || "";
+    var loginToken = req.headers['authtoken'] || req.body['authtoken'] || req.query['authtoken'] || "";
     // Verfity token with supplied certificate.
-    jwt.verify(loginToken, certLogin, function (err, decoded) {
+    jwt.verify(loginToken, loginCert, function (err, decoded) {
         if (err) {
-            // console.log('Login-Token is invalid!');
-            next(); // response.unauthorizedError("Failed to authenticate token.", res);
+            console.log('Login-Token is invalid!');
+            // next(); 
+            response.unauthorizedError("Failed to authenticate loginToken.", res);
         } else {
             // Save the user information in req.user
-            req.user = { id: decoded.uid, email: decoded.emailAddress, firstName: decoded.firstName, lastName: decoded.lastName };
-            // console.log('Login-Token is valid!');
+            req.user = { email: decoded.email, firstName: decoded.firstName, icecream: decoded.icecream };
+            console.log('Login-Token is valid!');
             next();
         }
     });
-    */
-   res.sendFile(path.join(__dirname, '../', 'api.png'))
 });
 
 // REST Routes

@@ -5,7 +5,7 @@ var iterations = 2500
 var keylength = 128
 var digest = 'sha512'
 
-module.exports = function (router, response, DB, jwt, Validator, Schemas) {
+module.exports = function (router, response, DB, jwt, Validator, Schemas, loginCert) {
 
   router.post("/login", function (req, res) {
     var login = {
@@ -18,7 +18,7 @@ module.exports = function (router, response, DB, jwt, Validator, Schemas) {
       return;
     } else login = validation.value;
 
-    DB.query('SELECT password, salt FROM Users WHERE email = ?', login.email, function (err, results) {
+    DB.query('SELECT email, firstName, icecream, password, salt FROM Users WHERE email = ?', login.email, function (err, results) {
       if (err) response.databaseError(res);
       else {
         if (results.length == 0) {
@@ -32,7 +32,12 @@ module.exports = function (router, response, DB, jwt, Validator, Schemas) {
           if (err) response.serverError('There was a server-error', res);
           else {
             var inputPassword = Buffer.from(encodedPassword, 'binary').toString('base64')
-            if (inputPassword === user.password) response.success('Successfully logged in', res);// callback(false, 'Successfully logged in')
+            if (inputPassword === user.password) {
+              jwt.sign( {email: user.email, firstName: user.firstName, icecream: user.icecream}, loginCert, function(err, token) {
+                if (err) response.serverError('There was a server-error', res);
+                else response.success({authtoken: token}, res);
+              });
+            }
             else response.unauthorizedError('The Username-Password-Combination doesn\'t match', res); // callback(true, 'The Username-Password-Combination doesn\'t match', false)
           }
         })
@@ -77,7 +82,12 @@ module.exports = function (router, response, DB, jwt, Validator, Schemas) {
                   user.salt = salt;
                   DB.query("INSERT INTO Users SET ?;", user, function (err, result) {
                     if (err) response.databaseError(res);
-                    else response.success('Successfully registered', res);
+                    else {
+                      jwt.sign( {email: user.email, firstName: user.registerFirstname, icecream: user.registerIcecream}, loginCert, function(err, token) {
+                        if (err) response.serverError('There was a server-error', res);
+                        else response.success({authtoken: token}, res);
+                      });
+                    }
                   });
                 }
               })
