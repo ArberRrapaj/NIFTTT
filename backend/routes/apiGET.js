@@ -8,6 +8,10 @@ module.exports = function(router, response, DB, Validator, Schemas) {
     response.success(req.user.pnr, res);
   }); */
 
+  router.get("/", function (req, res) {
+   res.sendFile(path.join(__dirname, '../', 'api.png'))
+});
+
   router.get("/users/:email", function(req, res) {
     const validation = Validator.validate(req.params["email"], Schemas.email);
     if (validation.invalid) {
