@@ -77,6 +77,8 @@ h2{
 
 #dashboard{
   padding:25px;
+  width:70%;
+  margin:0 auto;
 }
 
 #rule_list{

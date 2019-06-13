@@ -1,12 +1,38 @@
 import React from 'react'
 import {BrowserRouter, Link, Route} from "react-router-dom"
+import axios from "axios"
+import Cookies from "js-cookie"
 
 class RuleList extends React.Component {
   constructor(){
     super();
+
     this.state = {
       "rules":[]
     }
+
+    const axConf = {
+      url: `http://localhost:8080/users/${Cookies.get("email")}/rules`,
+      method: "get",
+      withCredentials: true,
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+        "Access-Control-Allow-Origin": "*"
+      }
+    }
+
+    axios.request(axConf)
+    .then(res=>{
+      alert("everything's alright!")
+      this.setState({
+        state: res.data
+      })
+    })
+    .catch(error=>{
+      alert(`An unknown has occured.`)
+      console.error(error)
+    })
   }
 
   selectRule(id){
@@ -34,21 +60,13 @@ class RuleList extends React.Component {
 }
 
 class Dashboard extends React.Component {
-  state = {
-    "show": true
-  }
   render(){
-    if(this.state.show){
-      return (
-        <div id="dashboard">
-        <h1>Dashboard</h1>
-        <RuleList/>
-        </div>
-      );
-    }
-    else {
-      return(null)
-    }
+    return (
+      <div id="dashboard">
+      <h1>Dashboard</h1>
+      <RuleList/>
+      </div>
+    );
   }
 }
 
