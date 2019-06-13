@@ -7,10 +7,14 @@ var express = require('express'),
     Schemas = require('../utilities/Schemas'),
     path = require('path'),
     DB = require('../db/DBConnector'),
-    loginCert = fs.readFileSync('cert/loginRS256.key');
+    loginCert = fs.readFileSync('cert/loginRS256.key'),
+    cookieParser = require("cookie-parser")(),
+    cors = require("cors")();
 
-require('../bin/eventChecker')(DB);
+// require('../bin/eventChecker')(DB);
 // add Login-Routes before the login-check
+router.use(cookieParser)
+router.use(cors)
 require("./apiLOGIN.js")(router, response, DB, jwt, Validator, Schemas, loginCert);
 
 /**
@@ -19,12 +23,12 @@ require("./apiLOGIN.js")(router, response, DB, jwt, Validator, Schemas, loginCer
 router.use("/", function (req, res, next) {
     console.log('Checking LoginToken...');
     // Check header or url parameters or post parameters for token.
-    var loginToken = req.headers['authtoken'] || req.body['authtoken'] || req.query['authtoken'] || "";
+    var loginToken = req.cookies["authtoken"] || req.headers['authtoken'] || req.body['authtoken'] || req.query['authtoken'] || "";
     // Verfity token with supplied certificate.
     jwt.verify(loginToken, loginCert, function (err, decoded) {
         if (err) {
             console.log('Login-Token is invalid!');
-            // next(); 
+            // next();
             response.unauthorizedError("Failed to authenticate loginToken.", res);
         } else {
             // Save the user information in req.user
