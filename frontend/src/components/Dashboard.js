@@ -11,6 +11,11 @@ class RuleList extends React.Component {
       "rules":[]
     }
 
+    this.fetchRules()
+    this.addRule = this.addRule.bind(this)
+  }
+
+  fetchRules(){
     const axConf = {
       url: `http://localhost:8080/users/${Cookies.get("email")}/rules`,
       method: "get",
@@ -31,8 +36,32 @@ class RuleList extends React.Component {
     })
   }
 
-  selectRule(id){
-    console.log(id)
+  addRule(){
+    const axConf = {
+      url: "http://localhost:8080/rules/",
+      method: "post",
+      headers: {
+        "authtoken": Cookies.get("authtoken")
+      },
+      data: {
+        "name": "new rule",
+        "triggerPlatform": 1,
+        "actionPlatform": 1,
+        "triggerPayload": "test",
+        "actionPayload": "test",
+        "active": 0,
+        "user": Cookies.get("email")
+      }
+    }
+
+    axios.request(axConf)
+    .then(res=>{
+      this.fetchRules()
+    })
+    .catch(error=>{
+      alert(`An unknown error has occured.`)
+      console.error(error)
+    })
   }
 
   render() {
@@ -44,7 +73,7 @@ class RuleList extends React.Component {
           <p className="rule_field_integrations table_header">Status</p>
         </div>
         {this.state.rules.map((rule) =>
-          <div className="column">
+          <div className="column" key={rule.id}>
             <Link to={{
                 pathname: "rule/" + rule.id,
                 state:{
@@ -55,6 +84,9 @@ class RuleList extends React.Component {
             <p className="rule_field_integrations">{rule.active?"on":"off"}</p>
           </div>
         )}
+        <div className="column">
+          <button id="add_rule" onClick={this.addRule}>Add Rule</button>
+        </div>
       </div>
     );
   }
