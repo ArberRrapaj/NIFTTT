@@ -19,7 +19,7 @@ module.exports = function(router, response, DB, Validator, Schemas) {
       return;
     } else req.params["email"] = validation.value;
 
-    DB.query("SELECT *, (SELECT COUNT(*)-1 FROM RuleLogs as l WHERE r.id = l.ruleId) as runCount FROM Rules as r WHERE user = ?;", req.params["email"], function(err, result) {
+    DB.query("SELECT *, (SELECT CASE WHEN COUNT(*) < 0 THEN 0 ELSE COUNT(*) END FROM RuleLogs as l WHERE r.id = l.ruleId) as runCount FROM Rules as r WHERE user = ?;", req.params["email"], function(err, result) {
       if (err) {
         response.databaseError(res);
         console.log(err);
