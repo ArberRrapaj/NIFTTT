@@ -54,6 +54,14 @@ h2{
   display:none !important;
 }
 
+#navbar h1{
+  margin:0;
+  font-size:2em;
+  text-align:left;
+  margin-left:20px;
+}
+
+
 #navbar{
   padding:10px;
   background-color:var(--primary-color);
@@ -62,12 +70,6 @@ h2{
   background: linear-gradient(329deg, rgba(0,70,120,1) 0%, rgba(0,161,255,1) 100%);
 }
 
-#navbar h1{
-  margin:0;
-  font-size:2em;
-  text-align:left;
-  margin-left:20px;
-}
 
 .no_scroll{
   overflow:hidden;
@@ -175,7 +177,57 @@ h2{
   color:var(--bright-font);
 }
 
+/* ===== ===== ===== Rule page ===== ===== ===== */
+#rule{
+  width: 60%;
+  margin:20px auto;
+  text-align:center;
+}
 
+#rule input{
+  font-size:2em;
+}
+
+#rule h1{
+  text-align:center;
+}
+
+#trigger_action{
+  overflow:hidden;
+  display:flex;
+}
+
+.trigger_action_cont{
+  flex-grow:1;
+  width:1px;
+  text-align: center;
+  display:flex;
+  flex-direction:column;
+  padding:25px;
+}
+
+#toggle_rule, #save_rule, #edit_rule, #add_rule{
+  display:block;
+  width:38%;
+  padding:5px;
+  margin: 10px auto;
+  text-align:center;
+  font-size:130%;
+  color:#FFF;
+  background-color: var(--primary-color);
+  border-radius:4px;
+  border:none;
+  cursor:pointer;
+}
+
+#save_rule{
+  margin-top:20px;
+}
+
+#rule_status{
+  text-align:center;
+  margin:30px 0;
+}
 
 /* ===== ===== ===== Animations and shit ===== ===== ===== */
 .hor_center{
