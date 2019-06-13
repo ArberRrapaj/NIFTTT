@@ -65,6 +65,10 @@ module.exports = function (DB) {
         const platform = rule.triggerPlatform;
         console.log('####' + platform + '-Rule####: ');
         parser.parseURL(url, function (err, feed) {
+            if (!feed) {
+                console.log('Couldn\'t load feed');
+                return;
+            }
             const lastElementTime = moment(feed.items[0]['pubDate']).format(timestamp);
             console.log('Last element: ', lastElementTime);
             DB.query("SELECT * FROM RuleLogs WHERE ruleId = ? ORDER BY time desc limit 1;", rule.id, function (err, result) {
