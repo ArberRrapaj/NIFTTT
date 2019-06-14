@@ -64,13 +64,34 @@ class RuleList extends React.Component {
     })
   }
 
+  deleteRule(id){
+    const axConf = {
+      url: `http://localhost:8080/rules/${id}`,
+      method: "delete",
+      headers: {
+        "authtoken": Cookies.get("authtoken")
+      }
+    }
+
+    axios.request(axConf)
+    .then(res=>{
+      this.fetchRules()
+    })
+    .catch(error=>{
+      alert(`An unknown error has occured.`)
+      console.error(error)
+    })
+  }
+
   render() {
     return(
       <div id="rule_list">
+        <p>Please click on a rule to view detailed information or edit it.</p>
         <div className="column">
           <p className="rule_field_name table_header">Name</p>
           <p className="rule_field_automations table_header">Automations</p>
           <p className="rule_field_integrations table_header">Status</p>
+          <p className="rule_field_delete table_header"><i className="fa fa-trash"></i></p>
         </div>
         {this.state.rules.map((rule) =>
           <div className="column" key={rule.id}>
@@ -82,6 +103,7 @@ class RuleList extends React.Component {
               }} className="rule_field_name"><p>{rule.name}</p></Link>
             <p className="rule_field_automations">{rule.runCount}</p>
             <p className="rule_field_integrations">{rule.active?"on":"off"}</p>
+            <p className="rule_field_delete" onClick={()=>this.deleteRule(rule.id)}><i className="fa fa-trash"></i></p>
           </div>
         )}
         <div className="column">
