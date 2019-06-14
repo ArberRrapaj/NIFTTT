@@ -30,23 +30,29 @@ class Login extends React.Component {
   }
 
   emailLogin(e){
-    uiu.showSpinner(this.refs.login_wrapper, this.refs.spinner);
+    if(this.state.email == ""){
+      alert("Please fill in the email field.")
+    } else {
+      uiu.showSpinner(this.refs.login_wrapper, this.refs.spinner);
 
-    // , {withCredentials: true}
-    axios.get(`http://localhost:8080/users/${this.state.email}`)
-    .then(res=>{
-      uiu.hideSpinner(this.refs.real_login_wrapper, this.refs.spinner);
-      this.refs.loginPassword.focus()
-    })
-    .catch(error=>{
-      if(error.response && error.response.status == 404){
-        uiu.hideSpinner(this.refs.register_wrapper, this.refs.spinner);
-        this.refs.registerFirstname.focus()
-      }else{
-        console.error("error while checking user existance: ")
-        console.error(error)
-      }
-    })
+      // , {withCredentials: true}
+      axios.get(`http://localhost:8080/users/${this.state.email}`)
+      .then(res=>{
+        uiu.hideSpinner(this.refs.real_login_wrapper, this.refs.spinner);
+        this.refs.loginPassword.focus()
+      })
+      .catch(error=>{
+        if(error.response && error.response.status == 404){
+          uiu.hideSpinner(this.refs.register_wrapper, this.refs.spinner);
+          this.refs.registerFirstname.focus()
+        } else if (error.response.status == 400) {
+          alert("This is not a valid email!")
+        } else {
+          console.error("error while checking user existance: ")
+          console.error(error)
+        }
+      })
+    }
     e.preventDefault()
   }
 
@@ -62,10 +68,14 @@ class Login extends React.Component {
     })
     .catch(error=>{
       uiu.hideOnly(this.refs.spinner);
-      if(error.response.status == 401){
+      if(error.response.status == 401 || error.response.status == 400){
         alert("Wrong password. Please try again!")
         this.props.history.push("/login")
-        this.props.callback()
+        uiu.showOnly(this.refs.login_wrapper);
+        this.setState({
+          "loginPassword": ""
+        })
+        this.refs.emailInput.focus()
       }else{
         console.log("error while logging in: " )
         console.log(error)
@@ -75,24 +85,29 @@ class Login extends React.Component {
   }
 
   register(e){
-    uiu.showSpinner(this.refs.register_wrapper, this.refs.spinner)
-    axios.post("http://localhost:8080/register", this.state)
-    .then(res=>{
-      uiu.hideOnly(this.refs.spinner)
-      alert("Thank you for registering. Please Log-in now.")
-      this.props.history.push("/login")
-      this.props.callback()
-    })
-    .catch(error=>{
-      uiu.hideOnly(this.refs.spinner)
-      if(error.response.status == 401){
-        alert("nope")
-        // TODO: False password
-      }else{
-        console.log("error while logging in: " )
-        console.log(error)
-      }
-    })
+    if(this.state.firstName == "" || this.state.registerPassword == ""
+      || this.state.registerIcecream == ""){
+        alert("All text fields are obligatory!")
+    } else {
+      uiu.showSpinner(this.refs.register_wrapper, this.refs.spinner)
+      axios.post("http://localhost:8080/register", this.state)
+      .then(res=>{
+        uiu.hideOnly(this.refs.spinner)
+        alert("Thank you for registering. Please Log-in now.")
+        this.props.history.push("/login")
+        this.props.callback()
+      })
+      .catch(error=>{
+        uiu.hideOnly(this.refs.spinner)
+        if(error.response.status == 401 ||error.response.status == 400){
+          alert("")
+          // TODO: False password
+        }else{
+          console.log("error while logging in: " )
+          console.log(error)
+        }
+      })
+    }
     e.preventDefault()
   }
 

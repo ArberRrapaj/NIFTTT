@@ -59,6 +59,8 @@ h2{
   font-size:2em;
   text-align:left;
   margin-left:20px;
+  display:inline;
+  flex-grow:1;
 }
 
 
@@ -68,8 +70,19 @@ h2{
   color:var(--bright-font);
   box-shadow: 0 0 20px 0px #444;
   background: linear-gradient(329deg, rgba(0,70,120,1) 0%, rgba(0,161,255,1) 100%);
+  display:flex;
 }
 
+#navigation{
+  flex-grow:0;
+  padding:10px;
+  font-size:1.25em;
+}
+
+#navigation a {
+  color:var(--bright-font) !important;
+  margin:0 10px;
+}
 
 .no_scroll{
   overflow:hidden;
@@ -91,7 +104,6 @@ h2{
 .column{
   display:flex;
   border-top:1px solid #CCC;
-  cursor:pointer;
   overflow:hidden;
   white-space: nowrap;
   text-overflow:ellipsis;
@@ -117,9 +129,16 @@ h2{
 }
 
 .column .rule_field_name{
-  flex-grow:2;
+  flex-grow:3;
   width:1px;
   font-weight:bold;
+  cursor:pointer;
+}
+
+.column .rule_field_delete{
+  width:1px;
+  font-weight:bold;
+  cursor:pointer;
 }
 
 .column .rule_field_automations, .column .rule_field_integrations{
