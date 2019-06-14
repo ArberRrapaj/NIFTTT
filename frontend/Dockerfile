@@ -1,18 +1,17 @@
-FROM node:12
+FROM node:12-alpine
 
 # Create app directory
-WORKDIR /usr/src/app
+WORKDIR /srv/app/nifttt-frontend
 
 # Install app dependencies
 # A wildcard is used to ensure both package.json AND package-lock.json are copied
-# where available (npm@5+)
-COPY backend/package*.json ./
+COPY package*.json /srv/app/nifttt-frontend/
 
 RUN npm install
 # If you are building your code for production
 # RUN npm ci --only=production
 
-COPY /backend .
+COPY . /srv/app/nifttt-frontend/
 
 EXPOSE 8080
 

@@ -1,0 +1,25 @@
+version: '3'
+
+services:
+
+###########################
+#   Setup backend container
+###########################
+  backend:
+    build: ./backend
+    expose:
+      - 8080
+    ports:
+      - 8080:8080
+    command: npm run start
+
+############################
+#   Setup frontend container
+############################
+  frontend:
+    build: ./frontend
+    expose:
+      - 3000
+    ports:
+      - 3000:3000
+    command: npm run start
