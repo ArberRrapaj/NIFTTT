@@ -122,7 +122,7 @@ module.exports = function (DB) {
                 break;
         }
         transporter.sendMail({
-            from: '"NIFTTT 🐬" <niftt@cetindere.com>', // sender address
+            from: '"NIFTTT" <nifttt@cetindere.com>', // sender address
             to: rule.actionPayload, // list of receivers
             subject: "NIFTTT Rule triggered", // Subject line
             text: message, // plain text body
