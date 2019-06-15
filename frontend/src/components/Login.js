@@ -36,7 +36,7 @@ class Login extends React.Component {
       uiu.showSpinner(this.refs.login_wrapper, this.refs.spinner);
 
       // , {withCredentials: true}
-      axios.get(`http://minervabooks.net:8080/users/${this.state.email}`)
+      axios.get(`https://nifttt.cetindere.de:8080/users/${this.state.email}`)
       .then(res=>{
         uiu.hideSpinner(this.refs.real_login_wrapper, this.refs.spinner);
         this.refs.loginPassword.focus()
@@ -58,7 +58,7 @@ class Login extends React.Component {
 
   realLogin(e){
     uiu.showSpinner(this.refs.real_login_wrapper, this.refs.spinner);
-    axios.post("http://minervabooks.net:8080/login", this.state)
+    axios.post("https://nifttt.cetindere.de:8080/login", this.state)
     .then(res=>{
       uiu.hideOnly(this.refs.spinner);
       Cookies.set("authtoken", res.data.authtoken, {expires: 7})
@@ -90,7 +90,7 @@ class Login extends React.Component {
         alert("All text fields are obligatory!")
     } else {
       uiu.showSpinner(this.refs.register_wrapper, this.refs.spinner)
-      axios.post("http://minervabooks.net:8080/register", this.state)
+      axios.post("https://nifttt.cetindere.de:8080/register", this.state)
       .then(res=>{
         uiu.hideOnly(this.refs.spinner)
         alert("Thank you for registering. Please Log-in now.")

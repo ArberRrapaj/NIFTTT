@@ -25,7 +25,7 @@ class Rule extends React.Component {
 
   componentDidMount(){
     let axConf = {
-      url: `http://minervabooks.net:8080/rules/${this.props.match.params.id}`,
+      url: `https://nifttt.cetindere.de:8080/rules/${this.props.match.params.id}`,
       method: "get",
       headers: {
         "authtoken": Cookies.get("authtoken")
@@ -47,7 +47,7 @@ class Rule extends React.Component {
 
   addPlatforms(){
     const axConf = {
-      url: "http://minervabooks.net:8080/platforms",
+      url: "https://nifttt.cetindere.de:8080/platforms",
       method: "get",
       headers:{
         "authtoken": Cookies.get("authtoken")
@@ -85,7 +85,7 @@ class Rule extends React.Component {
     putRule.actionPlatform = putRule.actionPlatform.id
 
     let axConf = {
-      url: `http://minervabooks.net:8080/rules/${this.props.match.params.id}`,
+      url: `https://nifttt.cetindere.de:8080/rules/${this.props.match.params.id}`,
       method: "put",
       headers: {
         "authtoken": Cookies.get("authtoken")
@@ -118,7 +118,7 @@ class Rule extends React.Component {
       console.log(putRule)
 
       let axConf = {
-        url: `http://minervabooks.net:8080/rules/${this.props.match.params.id}`,
+        url: `https://nifttt.cetindere.de:8080/rules/${this.props.match.params.id}`,
         method: "put",
         headers: {
           "authtoken": Cookies.get("authtoken")
