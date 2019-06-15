@@ -17,7 +17,7 @@ class RuleList extends React.Component {
 
   fetchRules(){
     const axConf = {
-      url: `http://localhost:8080/users/${Cookies.get("email")}/rules`,
+      url: `http://minervabooks.net:8080/users/${Cookies.get("email")}/rules`,
       method: "get",
       headers: {
         "authtoken": Cookies.get("authtoken")
@@ -38,7 +38,7 @@ class RuleList extends React.Component {
 
   addRule(){
     const axConf = {
-      url: "http://localhost:8080/rules/",
+      url: "http://minervabooks.net:8080/rules/",
       method: "post",
       headers: {
         "authtoken": Cookies.get("authtoken")
@@ -66,7 +66,7 @@ class RuleList extends React.Component {
 
   deleteRule(id){
     const axConf = {
-      url: `http://localhost:8080/rules/${id}`,
+      url: `http://minervabooks.net:8080/rules/${id}`,
       method: "delete",
       headers: {
         "authtoken": Cookies.get("authtoken")
